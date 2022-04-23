@@ -15,14 +15,21 @@ def game():
     count = 0
     
     for i in range(10):
-            printBoard(theBoard)
-            print(turn +"'s turn. Where do you want to go?")
+        printBoard(theBoard)
+        print(turn +"'s turn. Where do you want to go?")
 
-            move = input()        
+        move = input()        
 
-            if theBoard[move] == ' ':
-                theBoard[move] = turn
-                count += 1
-            else:
-                print("That place is already filled.\nWhere do you want to go?")
-                continue
+        if theBoard[move] == ' ':
+            theBoard[move] = turn
+            count += 1
+        else:
+            print("That place is already filled.\nWhere do you want to go?")
+            continue
+    
+        if turn =='X':
+            turn = 'O'
+        else:
+            turn = 'X'
+        
+game()
