@@ -116,3 +116,30 @@ def drawMove(row, col):
     
     pg.display.update()
     
+def userClick():
+    x, y = pg.mouse.get_pos()
+
+    if(x < width/3):
+        col = 1
+    elif (x < (width/3)*2):
+        col = 2
+    elif(x < width):
+        col = 3
+    else:
+        col = None
+
+    if(y < height/3):
+        row = 1
+    elif (y < (height/3)*2):
+        row = 2
+    elif(y < height):
+        row = 3
+    else:
+        row = None
+
+    if(row and col and board[row-1][col-1] is None):
+        global player
+
+        drawMove(row,col)
+        check_win()
+        
