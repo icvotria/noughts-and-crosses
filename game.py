@@ -143,3 +143,11 @@ def userClick():
         drawMove(row,col)
         check_win()
         
+def reset_game():
+    global board, winner, player, draw
+    time.sleep(3)
+    player = 'x'
+    draw = False
+    game_opening()
+    winner = None
+    board = [[None]*3,[None]*3,[None]*3]
