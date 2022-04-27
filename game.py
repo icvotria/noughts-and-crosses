@@ -1,3 +1,6 @@
+import sys
+print(sys.path)
+sys.path.append('c:/users/icvotria/appdata/local/packages/pythonsoftwarefoundation.python.3.10_qbz5n2kfra8p0/localcache/local-packages/python310/site-packages')
 import pygame as pg,sys
 from pygame.locals import *
 import time
