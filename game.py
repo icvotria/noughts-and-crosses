@@ -87,3 +87,32 @@ def check_win():
         draw = True
     
     draw_status()
+    
+def drawMove(row, col):
+    global board, player
+    
+    if row == 1:
+        posx = 30
+    if row == 2:
+        posx = width/3 + 30
+    if row == 3:
+        posx = width/3*2 + 30
+
+    if col == 1:
+        posy = 30
+    if col == 2:
+        posy = height/3 + 30
+    if col == 3:
+        posy = height/3*2 + 30
+        
+    board[row-1][col-1] = player
+    
+    if(player == 'x'):
+        screen.blit(x_img,(posy,posx))
+        player = 'o'
+    else:
+        screen.blit(o_img,(posy,posx))
+        player = 'x'
+    
+    pg.display.update()
+    
