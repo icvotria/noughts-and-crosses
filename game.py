@@ -20,13 +20,11 @@ CLOCK = pg.time.Clock()
 screen = pg.display.set_mode((width, height+100),0,32)
 pg.display.set_caption("Noughts & Crosses")
 
-opening = pg.image.load('opening.png')
 x_img = pg.image.load('x2.png')
 o_img = pg.image.load('o2.png')
 
 x_img = pg.transform.scale(x_img, (80,80))
 o_img = pg.transform.scale(o_img, (80,80))
-opening = pg.transform.scale(opening, (width, height+100))
 
 def game_opening():
     screen.fill(white)
@@ -107,10 +105,10 @@ def drawMove(row, col):
     board[row-1][col-1] = player
     
     if(player == 'x'):
-        screen.blit(x_img,(posy,posx))
+        screen.blit(x_img, (posy, posx))
         player = 'o'
     else:
-        screen.blit(o_img,(posy,posx))
+        screen.blit(o_img, (posy, posx))
         player = 'x'
     
     pg.display.update()
@@ -149,7 +147,7 @@ def reset_game():
     draw = False
     game_opening()
     winner = None
-    board = [[None]*3,[None]*3,[None]*3]
+    board = [[None]*3, [None]*3, [None]*3]
     
 game_opening()
 
