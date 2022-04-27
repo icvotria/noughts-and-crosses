@@ -14,7 +14,7 @@ board = [[None]*3,[None]*3,[None]*3]
 
 pg.init()
 fps = 30
-clock = pg.time.Clock()
+CLOCK = pg.time.Clock()
 screen = pg.display.set_mode((width, height+100),0,32)
 pg.display.set_caption("Noughts & Crosses")
 
@@ -151,3 +151,18 @@ def reset_game():
     game_opening()
     winner = None
     board = [[None]*3,[None]*3,[None]*3]
+    
+game_opening()
+
+while(True):
+    for event in pg.event.get():
+        if event.type == QUIT:
+            pg.quit()
+            sys.exit()
+        elif event.type == MOUSEBUTTONDOWN:
+            userClick()
+            if(winner or draw):
+                reset_game()
+
+    pg.display.update()
+    CLOCK.tick(fps)
