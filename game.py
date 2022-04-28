@@ -139,6 +139,16 @@ def userClick():
 
         drawMove(row, col)
         check_win()
+
+# def computerMove():
+#     col, row = decide move output (minimax algo)
+#   
+#     if(row and col and board[row-1][col-1] is None):
+#         global player
+#
+#     drawMove(row, col)
+#     check_win()
+    
         
 def reset_game():
     global board, winner, player, draw
@@ -163,3 +173,21 @@ while(True):
 
     pg.display.update()
     CLOCK.tick(fps)
+    
+# while(True):
+#     if player = "x":
+#         for event in pg.event.get():
+#             if event.type == QUIT:
+#                 pg.quit()
+#                 sys.exit()
+#             elif event.type == MOUSEBUTTONDOWN:
+#                 userClick()
+#                 if(winner or draw):
+#                     reset_game()
+#     else:
+#         computerMove()
+#         if(winner or draw):
+#             reset_game()
+#
+#     pg.display.update()
+#     CLOCK.tick(fps)
