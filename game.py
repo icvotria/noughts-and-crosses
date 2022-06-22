@@ -11,6 +11,7 @@ width = 400
 height = 400
 white = (255, 255, 255)
 line_color = (10, 10, 10)
+computerChoice = [0, 0]
 
 board = [[None]*3, [None]*3, [None]*3]
 
@@ -140,14 +141,23 @@ def userClick():
         drawMove(row, col)
         check_win()
 
-# def computerMove():
-#     col, row = decide move output (minimax algo)
-#   
-#     if(row and col and board[row-1][col-1] is None):
-#         global player
-#
-#     drawMove(row, col)
-#     check_win()
+def miniMax(board):
+    check_win()
+    
+def computerMove():
+    col = computerChoice[0]
+    row = computerChoice[1]
+  
+    if(row and col and board[row-1][col-1] is None):
+        global player
+
+        drawMove(row, col)
+        check_win()
+    computerChoice[0] = computerChoice[0] + 1
+    computerChoice[1] += 1
+
+def evaluate(board):
+    return 10
     
         
 def reset_game():
@@ -161,33 +171,33 @@ def reset_game():
     
 game_opening()
 
+# while(True):
+#     for event in pg.event.get():
+#         if event.type == QUIT:
+#             pg.quit()
+#             sys.exit()
+#         elif event.type == MOUSEBUTTONDOWN:
+#             userClick()
+#             if(winner or draw):
+#                 reset_game()
+
+#     pg.display.update()
+#     CLOCK.tick(fps)
+    
 while(True):
-    for event in pg.event.get():
-        if event.type == QUIT:
-            pg.quit()
-            sys.exit()
-        elif event.type == MOUSEBUTTONDOWN:
-            userClick()
-            if(winner or draw):
-                reset_game()
+    if player == "x":
+        for event in pg.event.get():
+            if event.type == QUIT:
+                pg.quit()
+                sys.exit()
+            elif event.type == MOUSEBUTTONDOWN:
+                userClick()
+                if(winner or draw):
+                    reset_game()
+    else:
+        computerMove()
+        if(winner or draw):
+            reset_game()
 
     pg.display.update()
     CLOCK.tick(fps)
-    
-# while(True):
-#     if player = "x":
-#         for event in pg.event.get():
-#             if event.type == QUIT:
-#                 pg.quit()
-#                 sys.exit()
-#             elif event.type == MOUSEBUTTONDOWN:
-#                 userClick()
-#                 if(winner or draw):
-#                     reset_game()
-#     else:
-#         computerMove()
-#         if(winner or draw):
-#             reset_game()
-#
-#     pg.display.update()
-#     CLOCK.tick(fps)
