@@ -11,7 +11,6 @@ width = 400
 height = 400
 white = (255, 255, 255)
 line_color = (10, 10, 10)
-computerChoice = [0, 0]
 
 board = [[None]*3, [None]*3, [None]*3]
 
@@ -144,17 +143,27 @@ def userClick():
 def miniMax(board):
     check_win()
     
-def computerMove():
-    col = computerChoice[0]
-    row = computerChoice[1]
-  
-    if(row and col and board[row-1][col-1] is None):
-        global player
+def getPossibleMoves():
+    possibleMoves = []
+    for x in range(0,3):
+        for y in range(0,3):
+            if(board[x][y] is None):
+                possibleMoves.append((x+1,y+1))
+    return possibleMoves
 
-        drawMove(row, col)
-        check_win()
-    computerChoice[0] = computerChoice[0] + 1
-    computerChoice[1] += 1
+    
+def computerMove():
+    ind = 0
+    moves = getPossibleMoves()
+    print(moves)
+    
+    for i in range(0, 3):
+        row, col = moves[i]
+        if row == 1 and col == 1:
+            global player
+
+            drawMove(row, col)
+            check_win()
 
 def evaluate(board):
     return 10
@@ -196,6 +205,7 @@ while(True):
                     reset_game()
     else:
         computerMove()
+        player == "x"
         if(winner or draw):
             reset_game()
 
