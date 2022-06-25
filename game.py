@@ -12,7 +12,7 @@ height = 400
 white = (255, 255, 255)
 line_color = (10, 10, 10)
 
-board = [[None]*3, [None]*3, [None]*3]
+game_board = [[None]*3, [None]*3, [None]*3]
 
 pg.init()
 fps = 30
@@ -55,8 +55,8 @@ def draw_status():
     
     pg.display.update()
     
-def check_win():
-    global board, winner, draw
+def check_win(board):
+    global winner, draw
 
     for row in range (0, 3):
         if ((board [row][0] == board[row][1] == board[row][2]) and (board [row][0] is not None)):
@@ -86,7 +86,7 @@ def check_win():
     draw_status()
     
 def drawMove(row, col):
-    global board, player
+    global game_board, player
     
     if row == 1:
         posx = 30
@@ -102,7 +102,7 @@ def drawMove(row, col):
     if col == 3:
         posy = height/3*2 + 30
         
-    board[row-1][col-1] = player
+    game_board[row-1][col-1] = player
     
     if(player == 'x'):
         screen.blit(x_img, (posy, posx))
@@ -134,16 +134,13 @@ def userClick():
     else:
         row = None
 
-    if(row and col and board[row-1][col-1] is None):
+    if(row and col and game_board[row-1][col-1] is None):
         global player
 
         drawMove(row, col)
-        check_win()
-
-def miniMax(board):
-    check_win()
+        check_win(game_board)
     
-def getPossibleMoves():
+def getPossibleMoves(board):
     possibleMoves = []
     for x in range(0,3):
         for y in range(0,3):
@@ -151,32 +148,36 @@ def getPossibleMoves():
                 possibleMoves.append((x+1,y+1))
     return possibleMoves
 
+def miniMax(board):
+    check_win(board)
+    scores = []
+    moves = []
+    tempBoard = board
+    possibleMoves = getPossibleMoves()
     
-def computerMove():
-    ind = 0
-    moves = getPossibleMoves()
-    print(moves)
-    
-    for i in range(0, 3):
-        row, col = moves[i]
-        if row == 1 and col == 1:
-            global player
+    for move in possibleMoves:
+        row, col = move
+        
 
-            drawMove(row, col)
-            check_win()
+def computerMove(ind):
+    moves = getPossibleMoves(game_board)
+    row, col = moves[ind]
+    global player
+
+    drawMove(row, col)
+    check_win(game_board)
 
 def evaluate(board):
     return 10
-    
-        
+       
 def reset_game():
-    global board, winner, player, draw
+    global game_board, winner, player, draw
     time.sleep(3)
     player = 'x'
     draw = False
     game_opening()
     winner = None
-    board = [[None]*3, [None]*3, [None]*3]
+    game_board = [[None]*3, [None]*3, [None]*3]
     
 game_opening()
 
@@ -194,6 +195,7 @@ game_opening()
 #     CLOCK.tick(fps)
     
 while(True):
+    ind = 0
     if player == "x":
         for event in pg.event.get():
             if event.type == QUIT:
@@ -204,7 +206,8 @@ while(True):
                 if(winner or draw):
                     reset_game()
     else:
-        computerMove()
+        computerMove(ind)
+        ind += 1
         player == "x"
         if(winner or draw):
             reset_game()
